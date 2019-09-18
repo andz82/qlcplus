@@ -123,6 +123,9 @@ public:
     /** Send DMX data to a specific universe */
     void sendDmx(const quint32 universe, const QByteArray& dmxData);
 
+    /** Send DMX data to Etherdream */
+    void sendEtherdream(const quint32 universe, const QByteArray& dmxData);
+
     /** Send a feedback using the specified path and value */
     void sendFeedback(const quint32 universe, quint32 channel, uchar value, const QString &key);
 

@@ -56,6 +56,32 @@ void OSCPacketizer::setupOSCDmx(QByteArray &data, quint32 universe, quint32 chan
     data.append(*(((char *)&fVal) + 0));
 }
 
+void OSCPacketizer::setupOSCEtherdream(QByteArray &data, quint32 universe, const QByteArray &values)
+{
+    data.clear();
+    QString path = QString("/dmx%1").arg(universe + 1);
+    data.append(path);
+
+    // add trailing zeros to reach a multiple of 4
+    int zeroNumber = 4 - (path.length() % 4);
+    if (zeroNumber > 0)
+        data.append(QByteArray(zeroNumber, 0x00));
+
+    data.append(",b");
+    data.append((char)0x00);
+    data.append((char)0x00);
+    data.append((char)0x00);
+    data.append((char)0x00);
+    data.append((char)0x02);
+    data.append((char)0x00);
+    // Output value
+    data.append(values);
+    if(values.size() < 512)
+    {
+        data.append(512 - values.size(), (char)0x00);
+    }
+}
+
 void OSCPacketizer::setupOSCGeneric(QByteArray &data, QString &path, QString types, QByteArray &values)
 {
     data.clear();

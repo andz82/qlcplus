@@ -51,7 +51,7 @@ public:
      *********************************************************************/
 
     /** Prepare an OSC DMX packet
- */
+    */
     /**
      * Prepare an OSC DMX message using a OSC path like
      * /$universe/dmx/$channel
@@ -63,6 +63,18 @@ public:
      * @param value the value to be transmitted (as float)
      */
     void setupOSCDmx(QByteArray& data, quint32 universe, quint32 channel, uchar value);
+
+    /**
+     * Prepare an Etherdream OSC message using the specified $path.
+     * Values are appended to the message as specified by their $types.
+     * Note that $types and $values must have the same length
+     *
+     * @param data the message composed by this function to be sent on the network
+     * @param path the OSC path to be used in the message
+     * @param types the list of types of the following $values
+     * @param values the actual values to be appended to the message
+     */
+    void setupOSCEtherdream(QByteArray &data, quint32 universe, const QByteArray &values);
 
     /**
      * Prepare an generic OSC message using the specified $path.

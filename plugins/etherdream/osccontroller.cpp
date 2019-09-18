@@ -274,6 +274,35 @@ void OSCController::sendDmx(const quint32 universe, const QByteArray &dmxData)
     }
 }
 
+void OSCController::sendEtherdream(const quint32 universe, const QByteArray &dmxData)
+{
+    QMutexLocker locker(&m_dataMutex);
+    QByteArray dmxPacket;
+    QHostAddress outAddress = QHostAddress::Null;
+    quint32 outPort = 7700 + universe;
+
+    if (m_universeMap.contains(universe))
+    {
+        outAddress = m_universeMap[universe].outputAddress;
+        outPort = m_universeMap[universe].outputPort;
+    }
+
+
+    m_packetizer->setupOSCEtherdream(dmxPacket, universe, dmxData);
+    qint64 sent = m_outputSocket->writeDatagram(dmxPacket.data(), dmxPacket.size(),
+                                                outAddress, outPort);
+    if (sent < 0)
+    {
+        qDebug() << "[OSC] sendDmx failed. Errno: " << m_outputSocket->error();
+        qDebug() << "Errmgs: " << m_outputSocket->errorString();
+    }
+    else
+    {
+        m_packetSent++;
+    }
+
+}
+
 void OSCController::sendFeedback(const quint32 universe, quint32 channel, uchar value, const QString &key)
 {
     QMutexLocker locker(&m_dataMutex);

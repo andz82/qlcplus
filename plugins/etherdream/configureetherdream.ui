@@ -30,7 +30,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>OSC Plugin Configuration</string>
+   <string>Etherdream Plugin Configuration</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../../ui/src/qlcui.qrc">

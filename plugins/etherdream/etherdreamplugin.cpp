@@ -200,7 +200,7 @@ void EtherdreamPlugin::writeUniverse(quint32 universe, quint32 output, const QBy
 
     OSCController *controller = m_IOmapping[output].controller;
     if (controller != NULL)
-        controller->sendDmx(universe, data);
+        controller->sendEtherdream(universe, data);
 }
 
 /*************************************************************************
