@@ -68,18 +68,12 @@ void OSCPacketizer::setupOSCEtherdream(QByteArray &data, quint32 universe, const
         data.append(QByteArray(zeroNumber, 0x00));
 
     data.append(",b");
-    data.append((char)0x00);
-    data.append((char)0x00);
-    data.append((char)0x00);
-    data.append((char)0x00);
+    data.append(4, (char)0x00);
     data.append((char)0x02);
     data.append((char)0x00);
     // Output value
     data.append(values);
-    if(values.size() < 512)
-    {
-        data.append(512 - values.size(), (char)0x00);
-    }
+    data.append(512 - values.size(), (char)0x00);
 }
 
 void OSCPacketizer::setupOSCGeneric(QByteArray &data, QString &path, QString types, QByteArray &values)
